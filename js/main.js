@@ -9,6 +9,10 @@ const map = L.map(mapContainer).setView([0,0], 15);
 const tileURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 const tiles = L.tileLayer(tileURL, { attribution }).addTo(map);
+const locationMarker = L.icon({
+    iconUrl: "/images/icon-location.svg",
+    iconSize: [46, 56],
+});
 
 displayClientIP();
 
@@ -74,7 +78,8 @@ function generateMap(info) {
     const lat = info.location.lat;
     const long = info.location.lng;
     const location = `${info.location.city}, ${info.location.country} ${info.location.postalCode}`;
-    const marker = L.marker([lat,long]).addTo(map);
+
+    const marker = L.marker([lat,long], { icon: locationMarker }).addTo(map);
 
     map.panTo([lat,long]);
     marker.bindPopup(location);
